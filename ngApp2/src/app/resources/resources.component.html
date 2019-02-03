@@ -1,0 +1,25 @@
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <td TD WIDTH="100px" >
+        <button (click)="addResource()" type="button" class="btn btn-primary">Add</button>
+      </td>
+      <td class="text-left">
+        <input (keyup)="onKey($event)" [(ngModel)]="addResourceData.value" name="" type="text" class="form-control rounded-0" required>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<label class="text-danger font-italic" for="">{{errorText}}</label>
+<p>
+<label for="">Resource list</label>
+<table class="table table-striped">
+  <tbody>    
+    <tr *ngFor="let res of ress; let i = index">
+      <td TD WIDTH="100px">
+        <button (click)="delResource(i)" type="button" class="btn btn-primary">Delete</button>
+      </td>
+      <td class="text-left">{{res.value}}</td>
+    </tr>
+  </tbody>
+</table>
