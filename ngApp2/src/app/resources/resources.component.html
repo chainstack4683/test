@@ -1,25 +1,40 @@
-<table class="table table-striped">
-  <tbody>
-    <tr>
-      <td TD WIDTH="100px" >
-        <button (click)="addResource()" type="button" class="btn btn-primary">Add</button>
-      </td>
-      <td class="text-left">
-        <input (keyup)="onKey($event)" [(ngModel)]="addResourceData.value" name="" type="text" class="form-control rounded-0" required>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<label class="text-danger font-italic" for="">{{errorText}}</label>
-<p>
-<label for="">Resource list</label>
-<table class="table table-striped">
-  <tbody>    
-    <tr *ngFor="let res of ress; let i = index">
-      <td TD WIDTH="100px">
-        <button (click)="delResource(i)" type="button" class="btn btn-primary">Delete</button>
-      </td>
-      <td class="text-left">{{res.value}}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="card rounded-0">
+  <div class="card-header">
+    <h4 class="mb-0" *ngIf="!email">Add Resource</h4>
+    <h4 class="mb-0" *ngIf="email">Add Resource (user {{email}})</h4>
+  </div>
+  <div class="card-body">
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <td TD WIDTH="100px">
+            <button (click)="addResource()" type="button" class="btn btn-primary">Add</button>
+          </td>
+          <td class="text-left">
+            <input (keyup)="onKey($event)" [(ngModel)]="addResourceData.value" name="" type="text" class="form-control rounded-0"
+              required>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <label class="text-danger font-italic" *ngIf="errorText" for="">{{errorText}}</label>
+  </div>
+</div>
+<div class="card rounded-0">
+  <div class="card-header">
+    <h4 class="mb-0" *ngIf="!email">Existing Resources</h4>
+    <h4 class="mb-0" *ngIf="email">Existing Resources (user {{email}})</h4>
+  </div>
+  <div class="card-body">
+    <table class="table table-striped">
+      <tbody>
+        <tr *ngFor="let res of ress; let i = index">
+          <td TD WIDTH="100px">
+            <button (click)="delResource(i)" type="button" class="btn btn-primary">Delete</button>
+          </td>
+          <td class="text-left">{{res.value}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

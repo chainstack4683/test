@@ -23,7 +23,6 @@ export class ResourcesComponent implements OnInit {
   ngOnInit() {
     this._route.queryParams.subscribe(params  => {
       this.email = params['email'];
-      console.log(this.email);
       this.getResources();
     });
   }
@@ -49,7 +48,6 @@ export class ResourcesComponent implements OnInit {
     .subscribe(
       res => {
         this.ress = res;
-        console.log(res);
       },
       err => {
         this.handleError(err);
