@@ -43,7 +43,6 @@ function verifyAdmin(req, res, next) {
     }
 }
 
-
 router.get('/', (req, res) => {
     res.send('From API route')
 })
@@ -82,7 +81,6 @@ router.post('/deluser', verifyToken, verifyAdmin, (req, res) => {
     
 }) 
 
-
 router.get('/users', verifyToken, verifyAdmin, (req, res) => {
     User.find({email: { $ne: "admin" }}).lean().exec(function (err, users) {
         res.json(users)
@@ -114,9 +112,11 @@ router.post('/login', (req, res) => {
 
 router.get('/resources', verifyToken, (req, res) => {
     
-    let email = req.query.email;
-    if(!email) {
-        email = req.origUsername;
+    let email = req.query.email || req.origUsername;
+    
+    if(req.origUsername !== 'admin' && email != req.origUsername) {
+        res.status(401).send('Unauthorized request');
+        return;
     }
 
     Resource.find({email: email}).lean().exec(function (err, users) {
@@ -126,10 +126,13 @@ router.get('/resources', verifyToken, (req, res) => {
 
 router.post('/resourceadd', verifyToken, async (req, res) => {
 
-    let email = req.body.email;
-    if(!email) {
-        email = req.origUsername;
+    let email = req.body.email || req.origUsername;
+    if(req.origUsername !== 'admin' && email != req.origUsername) {
+        res.status(401).send('Unauthorized request');
+        return;
     }
+
+    console.log()
 
     let resource = new Resource({email: email, value: req.body.value})
 
@@ -154,9 +157,10 @@ router.post('/resourceadd', verifyToken, async (req, res) => {
 
 router.post('/resourcedel', verifyToken, (req, res) => {
 
-    let email = req.body.email;
-    if(!email) {
-        email = req.origUsername;
+    let email = req.body.email || req.origUsername;
+    if(req.origUsername !== 'admin' && email != req.origUsername) {
+        res.status(401).send('Unauthorized request');
+        return;
     }
 
     Resource.findOne({email: email, value: req.body.value}).deleteOne().exec(function (err) {
