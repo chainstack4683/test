@@ -31,11 +31,11 @@ import { TokenInterceptorService } from './token-interceptor.service';
     AppRoutingModule
   ],
   providers: [AuthService, AuthGuard, ResourceService,
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptorService,
-    multi: true
-  }],
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

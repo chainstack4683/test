@@ -8,17 +8,19 @@
         <form class="form">
           <div class="form-group">
             <label for="">Email</label>
-            <input (keyup)="onKey($event)" [(ngModel)]="loginUserData.email" name="email" type="text" class="form-control rounded-0" required>
+            <input (keyup)="onKey($event)" [(ngModel)]="loginUserData.email" name="email" type="text" class="form-control rounded-0"
+              required>
           </div>
           <div class="form-group">
             <label for="">Password</label>
-            <input (keyup)="onKey($event)" [(ngModel)]="loginUserData.password" name="password" type="password" class="form-control rounded-0" required>
+            <input (keyup)="onKey($event)" [(ngModel)]="loginUserData.password" name="password" type="password" class="form-control rounded-0"
+              required>
           </div>
           <div class="form-group">
             <label class="text-danger font-italic" for="">{{errorText}}</label>
             <button (click)="loginUser()" type="button" class="btn btn-primary float-right">Login</button>
           </div>
-      </form>
+        </form>
       </div>
     </div>
   </div>

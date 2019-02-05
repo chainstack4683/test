@@ -21,7 +21,7 @@ export class ResourcesComponent implements OnInit {
     private _route: ActivatedRoute) { }
 
   ngOnInit() {
-    this._route.queryParams.subscribe(params  => {
+    this._route.queryParams.subscribe(params => {
       this.email = params['email'];
       this.getResources();
     });
@@ -45,41 +45,41 @@ export class ResourcesComponent implements OnInit {
 
   getResources() {
     this._resourceService.getResources(this.email)
-    .subscribe(
-      res => {
-        this.ress = res;
-      },
-      err => {
-        this.handleError(err);
-      }
-    );
+      .subscribe(
+        res => {
+          this.ress = res;
+        },
+        err => {
+          this.handleError(err);
+        }
+      );
   }
 
   addResource() {
     this._resourceService.addResource(this.email, this.addResourceData['value'])
-    .subscribe(
-      res => {
-        this.addResourceData = {};
-        this.getResources();
-      },
-      err => {
-        this.handleError(err);
-      }
-    );
+      .subscribe(
+        res => {
+          this.addResourceData = {};
+          this.getResources();
+        },
+        err => {
+          this.handleError(err);
+        }
+      );
   }
 
   delResource(index: number) {
     this.errorText = null;
     const value = this.ress[index].value;
     this._resourceService.delResource(this.email, value)
-    .subscribe(
-      res => {
-        this.getResources();
-      },
-      err => {
-        this.handleError(err);
-      }
-    );
+      .subscribe(
+        res => {
+          this.getResources();
+        },
+        err => {
+          this.handleError(err);
+        }
+      );
   }
 
 }

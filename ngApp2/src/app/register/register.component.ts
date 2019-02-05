@@ -22,18 +22,18 @@ export class RegisterComponent implements OnInit {
 
   registerUser() {
     this._auth.registerUser(this.registerUserData)
-    .subscribe(
-      res => {
-        console.log(res);
-        this.registerUserData['email'] = null;
-        this.registerUserData['password'] = null;
-        this.errorText = 'User registered successfully';
-        this._router.navigate(['/users']);
-      },
-      err => {
-        console.log(err);
-        this.errorText = err.error;
-      }
-    );
+      .subscribe(
+        res => {
+          console.log(res);
+          this.registerUserData['email'] = null;
+          this.registerUserData['password'] = null;
+          this.errorText = 'User registered successfully';
+          this._router.navigate(['/users']);
+        },
+        err => {
+          console.log(err);
+          this.errorText = err.error;
+        }
+      );
   }
 }

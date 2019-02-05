@@ -30,27 +30,27 @@ export class UsersComponent implements OnInit {
 
   getUsers() {
     this._authService.users()
-    .subscribe(
-      res => this.users = res,
-      err => this.handleError(err)
-    );
+      .subscribe(
+        res => this.users = res,
+        err => this.handleError(err)
+      );
   }
 
   delUser(index: number) {
     const email = this.users[index].email;
-    this._authService.delUser({email: email})
-    .subscribe(
-      res => {
-        this.getUsers();
-      },
-      err => this.handleError(err)
-    );
+    this._authService.delUser({ email: email })
+      .subscribe(
+        res => {
+          this.getUsers();
+        },
+        err => this.handleError(err)
+      );
 
   }
 
   showResource(index: number) {
     const email = this.users[index].email;
-    this._router.navigate(['resources'], {queryParams: {email: email}});
+    this._router.navigate(['resources'], { queryParams: { email: email } });
   }
 
   setQuota(index: number) {
@@ -58,11 +58,11 @@ export class UsersComponent implements OnInit {
     const quota = this.users[index].quota;
 
     this._authService.setQuota(email, quota)
-    .subscribe(
-      res => {
-        console.log(res);
-      },
-      err => this.handleError(err)
-    );
+      .subscribe(
+        res => {
+          console.log(res);
+        },
+        err => this.handleError(err)
+      );
   }
 }

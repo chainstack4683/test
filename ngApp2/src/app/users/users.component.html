@@ -1,4 +1,3 @@
-  
 <table class="table table-striped">
   <thead>
     <tr>
@@ -9,23 +8,22 @@
       <th scope="col">Quota</th>
     </tr>
   </thead>
-  <tbody>    
+  <tbody>
     <tr *ngFor="let user of users; let i = index">
-        <td WIDTH="100px" class="text-left">{{i}}</td>
-        <td class="text-left">{{user.email}}</td>
-        <td WIDTH="100px">
-          <button (click)="delUser(i)" type="button" class="btn btn-primary">Delete User</button>
-        </td>
-        <td WIDTH="100px">
-            <button (click)="showResource(i)" type="button" class="btn btn-primary">Show Resources</button>
-        </td>
-        <td WIDTH="100px" class="text-left">
-          <input [(ngModel)]="user.quota" name="" type="number" min="0" class="form-control rounded-0" required>
-        </td>
-        <td WIDTH="100px">
-            <button (click)="setQuota(i)" type="button" class="btn btn-primary">Change Quota</button>
-        </td>
+      <td WIDTH="100px" class="text-left">{{i}}</td>
+      <td class="text-left">{{user.email}}</td>
+      <td WIDTH="100px">
+        <button (click)="delUser(i)" type="button" class="btn btn-primary">Delete User</button>
+      </td>
+      <td WIDTH="100px">
+        <button (click)="showResource(i)" type="button" class="btn btn-primary">Show Resources</button>
+      </td>
+      <td WIDTH="100px" class="text-left">
+        <input [(ngModel)]="user.quota" name="" type="number" min="0" class="form-control rounded-0" required>
+      </td>
+      <td WIDTH="100px">
+        <button (click)="setQuota(i)" type="button" class="btn btn-primary">Change Quota</button>
+      </td>
     </tr>
   </tbody>
 </table>
-  

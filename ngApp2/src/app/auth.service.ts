@@ -37,7 +37,7 @@ export class AuthService {
   }
 
   setQuota(email, quota) {
-    return this.http.post(this._quotaUrl, {email: email, quota: quota});
+    return this.http.post(this._quotaUrl, { email: email, quota: quota });
   }
 
   delUser(user) {
