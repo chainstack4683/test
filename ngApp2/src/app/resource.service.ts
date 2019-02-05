@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResourceService {
 
-  private _resourcesUrl = 'http://localhost:3000/api/resources';
-  private _resourceAddUrl = 'http://localhost:3000/api/resourceadd';
-  private _resourceDelUrl = 'http://localhost:3000/api/resourcedel';
+  private _resourcesUrl = environment.apiEndpoint + '/resources';
+  private _resourceAddUrl = environment.apiEndpoint + '/resourceadd';
+  private _resourceDelUrl = environment.apiEndpoint + '/resourcedel';
 
   constructor(private http: HttpClient) { }
 
