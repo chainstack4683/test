@@ -47,7 +47,7 @@ router.get('/', (req, res) => {
     res.send('From API route')
 })
 
-router.post('/adduser', verifyToken, (req, res) => {
+router.post('/adduser', verifyToken, verifyAdmin, (req, res) => {
     let userData = req.body
     let user = new User(userData)
     user.save((error, registeredUser) => {
