@@ -8,7 +8,7 @@ const router = express.Router()
 
 const db = "mongodb://chainstack:chainstack1@ds111425.mlab.com:11425/chanstacktestdb"
 
-mongoose.connect(db, { useNewUrlParser: true }, err => {
+mongoose.connect(db, { useNewUrlParser: true, useCreateIndex: true }, err => {
     if (err) {
         console.error('Error!' + err)
     } else {
@@ -18,21 +18,27 @@ mongoose.connect(db, { useNewUrlParser: true }, err => {
 })
 
 function verifyToken(req, res, next) {
-    if (!req.headers.authorization) {
-        return res.status(401).send('Unauthorized request')
-    }
-    let token = req.headers.authorization.split(' ')[1];
-    if (token === 'null') {
-        return res.status(401).send('Unauthorized request')
-    }
-    let payload = jwt.verify(token, 'secretKey')
-    if (!payload) {
-        return res.status(401).send('Unauthorized request')
-    }
+    try {
+        if (!req.headers.authorization) {
+            return res.status(401).send('Unauthorized request')
+        }
+    
+        let token = req.headers.authorization.split(' ')[1];
+        if (token === 'null') {
+            return res.status(401).send('Unauthorized request')
+        }
+        
+        let payload = jwt.verify(token, 'secretKey')
+        if (!payload) {
+            return res.status(401).send('Unauthorized request')
+        }
 
-    req.userId = payload.subject
-    req.origUsername = payload.username
-    next()
+        req.userId = payload.subject
+        req.origUsername = payload.username
+        next()
+    } catch (err) {
+        return res.status(401).send('Unauthorized request')
+    }
 }
 
 function verifyAdmin(req, res, next) {
@@ -82,7 +88,7 @@ router.post('/deluser', verifyToken, verifyAdmin, (req, res) => {
 })
 
 router.get('/users', verifyToken, verifyAdmin, (req, res) => {
-    User.find({ email: { $ne: "admin" } }).lean().exec(function (err, users) {
+    User.find({ email: { $ne: "admin" } }, 'email quota').lean().exec(function (err, users) {
         res.json(users)
     })
 })
