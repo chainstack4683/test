@@ -11,7 +11,10 @@
 
 ## Run ##
 
-* To run locally simply run: `node server`.
+* To run locally simply run: `node server` or `npm start`.
 * If you prefer to run via Docker, the Dockerfile is provided for your convinience.
 
+## Run unittests ##
+
+* Run `npm test` to run tests using [Mocha](https://mochajs.org/).
 

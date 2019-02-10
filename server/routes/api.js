@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/user')
 const Resource = require('../models/resource')
 const mongoose = require('mongoose')
+const sha256 = require('js-sha256').sha256;
 
 const router = express.Router()
 
@@ -56,6 +57,7 @@ router.get('/', (req, res) => {
 router.post('/adduser', verifyToken, verifyAdmin, (req, res) => {
     let userData = req.body
     let user = new User(userData)
+    user.password = sha256(user.password);
     user.save((error, registeredUser) => {
         if (error) {
             if (error.code === 11000) {
@@ -64,7 +66,7 @@ router.post('/adduser', verifyToken, verifyAdmin, (req, res) => {
                 console.log(error)
             }
         } else {
-            res.status(200).send(registeredUser)
+            res.status(200).send({})
         }
     })
 })
@@ -104,7 +106,7 @@ router.post('/login', (req, res) => {
             if (!user) {
                 res.status(401).send('Invalid email')
             } else {
-                if (user.password != userData.password) {
+                if (user.password !== sha256(userData.password)) {
                     res.status(401).send('Invalid password')
                 } else {
                     let payload = { subject: user._id, username: userData.email }
